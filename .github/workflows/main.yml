@@ -5,7 +5,7 @@ description: |
 
 on:
   push:
-    branches: [ main2, develop2 ]
+    branches: [ main, develop ]
   workflow_dispatch:
 
 env:
