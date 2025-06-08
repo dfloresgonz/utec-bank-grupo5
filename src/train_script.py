@@ -5,7 +5,7 @@ from sklearn.metrics import accuracy_score
 import joblib
 import os
 import glob
-
+import json
 
 def model_fn(model_dir):
   """Load model for inference - REQUIRED for SageMaker endpoints"""
