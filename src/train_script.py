@@ -58,22 +58,26 @@ if __name__ == "__main__":
     print(f"Training accuracy: {train_accuracy:.4f}")
     print(f"Test accuracy: {test_accuracy:.4f}")
 
-    try:
-      print("Attempting SageMaker Experiments logging...")
-      from sagemaker.experiments import run
-      import sagemaker
+    output_dir = "/opt/ml/output"
+    os.makedirs(output_dir, exist_ok=True)
 
-      with run.Run(sagemaker_session=sagemaker.Session()) as current_run:
-        current_run.log_metric("train_accuracy", train_accuracy)
-        current_run.log_metric("test_accuracy", test_accuracy)
-        current_run.log_parameter("n_estimators", 10)
-        current_run.log_parameter("algorithm", "RandomForest")
+    # Guardar métricas en formato que SageMaker puede leer
+    metrics = {
+        "regression_metrics": {
+            "train_accuracy": {"value": train_accuracy},
+            "test_accuracy": {"value": test_accuracy},
+            "accuracy_diff": {"value": train_accuracy - test_accuracy}
+        },
+        "binary_classification_metrics": {
+            "train_accuracy": {"value": train_accuracy, "standard_deviation": 0.0},
+            "test_accuracy": {"value": test_accuracy, "standard_deviation": 0.0}
+        }
+    }
 
-      print("✅ SageMaker Experiments logging successful")
+    with open(f"{output_dir}/metrics.json", "w") as f:
+      json.dump(metrics, f)
 
-    except Exception as exp_error:
-      print(f"⚠️ SageMaker Experiments failed: {exp_error}")
-      print("Continuing with basic logging...")
+    print("✅ Metrics saved to JSON file")
 
     print(f"METRIC train_accuracy {train_accuracy}")
     print(f"METRIC test_accuracy {test_accuracy}")
