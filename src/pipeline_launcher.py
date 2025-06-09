@@ -87,7 +87,7 @@ with Run(experiment_name=experiment_name,
 
     # Delete existing endpoint first
     session.sagemaker_client.delete_endpoint(EndpointName=ENDPOINT_NAME)
-    time.sleep(30)
+    time.sleep(60)
 
     # Deploy new endpoint
     predictor = estimator.deploy(
