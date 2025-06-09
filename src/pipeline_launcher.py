@@ -78,8 +78,7 @@ with Run(experiment_name=experiment_name,
   #     initial_instance_count=1,
   #     instance_type="ml.m5.large"
   # )
-  experiment_name = f"recomendador-experimento2-{secrets.token_hex(4)}"
-
+  ENDPOINT_NAME = f"endpoint-{secrets.token_hex(4)}"
   # Simple deployment
   try:
     # Check if endpoint exists
