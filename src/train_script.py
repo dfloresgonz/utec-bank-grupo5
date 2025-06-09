@@ -158,8 +158,8 @@ if __name__ == "__main__":
 
   #   print("✅ Training completed successfully!")
 
-  # except Exception as e:
-  #   print(f"❌ Training failed with error: {str(e)}")
-  #   import traceback
-  #   traceback.print_exc()
-  #   raise e
+  except Exception as e:
+    print(f"❌ Training failed with error: {str(e)}")
+    import traceback
+    traceback.print_exc()
+    raise e
