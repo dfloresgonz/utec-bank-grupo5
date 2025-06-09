@@ -57,6 +57,7 @@ if __name__ == "__main__":
 
     print(f"Training accuracy: {train_accuracy:.4f}")
     print(f"Test accuracy: {test_accuracy:.4f}")
+    print(f"validation:accuracy={test_accuracy:.4f}")
 
     print(f"METRIC train_accuracy {train_accuracy}")
     print(f"METRIC test_accuracy {test_accuracy}")
