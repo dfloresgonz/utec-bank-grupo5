@@ -12,7 +12,7 @@ env:
   AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
 
 jobs:
-  complete-ml-pipeline:
+  deploy:
     runs-on: ubuntu-latest
     
     steps:
