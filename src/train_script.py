@@ -58,23 +58,6 @@ if __name__ == "__main__":
     print(f"Training accuracy: {train_accuracy:.4f}")
     print(f"Test accuracy: {test_accuracy:.4f}")
 
-    try:
-      print("Attempting SageMaker Experiments logging...")
-      from sagemaker.experiments import run
-      import sagemaker
-
-      with run.Run(sagemaker_session=sagemaker.Session()) as current_run:
-        current_run.log_metric("train_accuracy", train_accuracy)
-        current_run.log_metric("test_accuracy", test_accuracy)
-        current_run.log_parameter("n_estimators", 10)
-        current_run.log_parameter("algorithm", "RandomForest")
-
-      print("✅ SageMaker Experiments logging successful")
-
-    except Exception as exp_error:
-      print(f"⚠️ SageMaker Experiments failed: {exp_error}")
-      print("Continuing with basic logging...")
-
     print(f"METRIC train_accuracy {train_accuracy}")
     print(f"METRIC test_accuracy {test_accuracy}")
 

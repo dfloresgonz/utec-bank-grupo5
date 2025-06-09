@@ -27,6 +27,11 @@ experiment = Experiment.create(
     description="Experimento de recomendador"
 )
 
+metric_definitions = [{
+    'Name': 'validation:accuracy',
+    'Regex': 'validation:accuracy=([0-9\\.]+)'
+}]
+
 with Run(experiment_name=experiment_name,
          run_name=f"run-{timestamp}",
          sagemaker_session=session) as run:
@@ -38,7 +43,9 @@ with Run(experiment_name=experiment_name,
       framework_version="0.23-1",
       py_version="py3",
       sagemaker_session=session,
+      metric_definitions=metric_definitions,
       base_job_name="recomendador-train",
+      enable_sagemaker_metrics=True,
       hyperparameters={
           'n-estimators': 100,
           'max-depth': 10,
