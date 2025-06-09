@@ -68,45 +68,15 @@ with Run(experiment_name=experiment_name,
   print("✅ Modelo registrado:", model_package.model_package_arn)
 
   # Deployar modelo en sagemaker
-  # model = ModelPackage(
-  #     role=role,
-  #     model_package_arn=model_package.model_package_arn,
-  #     sagemaker_session=session
-  # )
+  model = ModelPackage(
+      role=role,
+      model_package_arn=model_package.model_package_arn,
+      sagemaker_session=session
+  )
 
-  # predictor = model.deploy(
-  #     initial_instance_count=1,
-  #     instance_type="ml.m5.large"
-  # )
-  ENDPOINT_NAME = "endpoint-utec"
-  # Simple deployment
-  try:
-    # Check if endpoint exists
-    session.sagemaker_client.describe_endpoint(EndpointName=ENDPOINT_NAME)
-    print(f"🔄 Endpoint exists, deleting and recreating: {ENDPOINT_NAME}")
-
-    # Delete existing endpoint first
-    session.sagemaker_client.delete_endpoint(EndpointName=ENDPOINT_NAME)
-    time.sleep(60)
-
-    # Deploy new endpoint
-    predictor = estimator.deploy(
-        initial_instance_count=1,
-        instance_type="ml.m5.large",
-        endpoint_name=ENDPOINT_NAME
-    )
-
-  except session.sagemaker_client.exceptions.ClientError:
-    # Endpoint doesn't exist, create new one
-    print(f"🚀 Creating new endpoint: {ENDPOINT_NAME}")
-
-    predictor = estimator.deploy(
-        initial_instance_count=1,
-        instance_type="ml.m5.large",
-        endpoint_name=ENDPOINT_NAME
-    )
-
-  print(f"🎯 Endpoint ready: {predictor.endpoint_name}")
-  print(f"🧪 Experiment: {experiment_name}")
+  predictor = model.deploy(
+      initial_instance_count=1,
+      instance_type="ml.m5.large"
+  )
 
   print("✅ Deployment completed!")
