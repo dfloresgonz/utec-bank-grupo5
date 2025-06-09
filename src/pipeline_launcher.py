@@ -78,7 +78,7 @@ with Run(experiment_name=experiment_name,
   #     initial_instance_count=1,
   #     instance_type="ml.m5.large"
   # )
-
+  ENDPOINT_NAME = "recomendador-endpoint"
   # Simple deployment
   try:
     # Check if endpoint exists
